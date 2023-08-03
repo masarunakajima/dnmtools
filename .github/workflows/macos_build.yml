@@ -1,14 +1,10 @@
-name: macos CI
+name: Build on macOS
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
 
 jobs:
-  build-macos:
+  macos-build:
 
     runs-on: macos-13
 
@@ -16,59 +12,17 @@ jobs:
     - uses: actions/checkout@v3
       with:
         submodules: recursive
-    - name: Update packages
+    - name: Update Homebrew
       run: brew update
     - name: Install autotools
       run: brew install autoconf automake libtool
     - name: Install dependencies
-      run: brew install htslib gsl samtools libomp
+      run: brew install htslib gsl samtools
     - name: Generate configure script
-      run: autoreconf -i src/abismal/src/smithlab_cpp src/abismal src/smithlab_cpp .
-    - name: configure
-      run: ./configure
-      env:
-        CC:  clang
-        CXX: clang++
+      run: ./autogen.sh
+    - name: configure with g++-12
+      run: ./configure CXX="g++-12" CPPFLAGS="-I$(brew --prefix)/include" LDFLAGS="-L$(brew --prefix)/lib"
     - name: make
       run: make
-      #run: make CXXFLAGS="-Xclang"
-    - name: make check
+    - name: check 
       run: make check
-    - name: make distcheck
-      run: make distcheck
-
-
-#name: C/C++ CI
-
-#on:
-  #workflow_dispatch:
-  #push:
-    #branches: [ "master" ]
-  #pull_request:
-    #branches: [ "master" ]
-
-#jobs:
-  #build:
-
-    #runs-on: ubuntu-latest
-
-    #steps:
-    #- uses: actions/checkout@v3
-      #with:
-        #submodules: recursive
-    #- name: Update packages
-      #run: sudo apt-get update
-    #- name: Install autotools
-      #run: sudo apt-get install -y autoconf automake libtool
-    #- name: Install dependencies
-      #run: sudo apt-get install -y libhts-dev libgsl-dev samtools
-    #- name: Generate configure script
-      #run: autoreconf -i src/abismal/src/smithlab_cpp src/abismal src/smithlab_cpp .
-    #- name: configure
-      #run: ./configure
-    #- name: make
-      #run: make
-    #- name: make check
-      #run: make check
-    #- name: make distcheck
-      #run: make distcheck
