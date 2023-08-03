@@ -19,7 +19,7 @@ jobs:
     - name: Update packages
       run: brew update
     - name: Install autotools
-      run: brew install autoconf automake libtool
+      run: brew install gcc autoconf automake libtool
     - name: Install dependencies
       run: brew install htslib gsl samtools libomp
     - name: Generate configure script
@@ -27,7 +27,8 @@ jobs:
     - name: configure
       run: ./configure
     - name: make
-      run: make CXXFLAGS="-Xclang"
+      run: make
+      #run: make CXXFLAGS="-Xclang"
     - name: make check
       run: make check
     - name: make distcheck
