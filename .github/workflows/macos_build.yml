@@ -19,7 +19,7 @@ jobs:
     - name: Update packages
       run: brew update
     - name: Install autotools
-      run: brew install gcc autoconf automake libtool
+      run: brew install clang autoconf automake libtool
     - name: Install dependencies
       run: brew install htslib gsl samtools libomp
     - name: Generate configure script
