@@ -18,8 +18,10 @@ jobs:
         submodules: recursive
     - name: Update packages
       run: brew update
+		- name: Install Xcode Command Line Tools
+			run: xcode-select --install
     - name: Install autotools
-      run: brew install clang autoconf automake libtool
+      run: brew install autoconf automake libtool
     - name: Install dependencies
       run: brew install htslib gsl samtools libomp
     - name: Generate configure script
