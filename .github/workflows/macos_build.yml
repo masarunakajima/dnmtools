@@ -21,15 +21,14 @@ jobs:
     - name: Install autotools
       run: brew install autoconf automake libtool
     - name: Install dependencies
-      run: brew install gcc htslib gsl samtools libomp
+      run: brew install htslib gsl samtools libomp
     - name: Generate configure script
       run: autoreconf -i src/abismal/src/smithlab_cpp src/abismal src/smithlab_cpp .
-    - name: Set up Compiler
-      run: |
-        export CC=clang
-        export CXX=clang++
     - name: configure
       run: ./configure
+      env:
+        CC:  clang
+        CXX: clang++
     - name: make
       run: make
       #run: make CXXFLAGS="-Xclang"
