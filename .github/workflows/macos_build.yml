@@ -25,7 +25,7 @@ jobs:
     - name: Generate configure script
       run: autoreconf -i src/abismal/src/smithlab_cpp src/abismal src/smithlab_cpp .
     - name: configure
-      run: ./configure
+      run: ./configure CXXFLAGS="-Xclang"
     - name: make
       run: make CXXFLAGS="-Xclang"
     - name: make check
