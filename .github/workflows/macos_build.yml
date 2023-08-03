@@ -24,6 +24,10 @@ jobs:
       run: brew install gcc htslib gsl samtools libomp
     - name: Generate configure script
       run: autoreconf -i src/abismal/src/smithlab_cpp src/abismal src/smithlab_cpp .
+    - name: Set up Compiler
+      run: |
+        export CC=clang
+        export CXX=clang++
     - name: configure
       run: ./configure
     - name: make
