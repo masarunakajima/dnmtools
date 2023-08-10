@@ -18,7 +18,7 @@ RUN mkdir /app/htslib &&  cd /app/htslib \
   && wget https://github.com/samtools/htslib/releases/download/${HTS}/${HTSDIR}.tar.bz2 \
   && tar -xf ${HTSDIR}.tar.bz2 \
   && cd /app/htslib/${HTSDIR} \
-  &&  autoreconf -i &&  ./configure --prefix=`pwd` && make && make install 
+  &&  autoreconf -i &&  ./configure --prefix=`pwd` && make && && make check && make distcheck && make install 
 
 # Build dnmtools
 FROM alpine:latest as build_dnmtools
