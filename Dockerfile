@@ -38,7 +38,7 @@ COPY --from=build_htslib /app/htslib/${HTSDIR}/include/. /usr/include
 RUN mkdir /app/dnmtools
 COPY . /app/dnmtools
 RUN cd /app/dnmtools && ./autogen.sh \ 
- && ./configure --prefix=`pwd` && make && make install
+ && ./configure --prefix=`pwd` && make && make check && make distcheck && make install
 
 
 # Build a light-weight image just with binaries
