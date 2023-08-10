@@ -49,6 +49,6 @@ jobs:
           context: .
           push: true
           tags: |
-            v$VERSION_NUMBER
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ env.VERSION_NUMBER }}
             ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
