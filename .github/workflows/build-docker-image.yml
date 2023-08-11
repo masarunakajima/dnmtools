@@ -66,3 +66,8 @@ jobs:
           tags: |
             ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          
+      - name: Confirm
+        id: confirm_tag
+        run: |
+          echo ${{ steps.check_tag.outputs.IS_TAG_EVENT }}
