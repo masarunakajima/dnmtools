@@ -6,7 +6,7 @@ on:
       - main
   push:
     tags:
-      - 'v*'
+      - 'v*.*.*'
 
 env:
   REGISTRY: ghcr.io
@@ -23,6 +23,7 @@ jobs:
       - name: Check if tag event
         id: check_tag
         run: |
+          echo $GITHUB_REF
           if [[ -n "$GITHUB_REF" && "$GITHUB_REF" == "refs/tags/"* ]]; then
             echo "IS_TAG_EVENT=true" >> $GITHUB_ENV
           else
