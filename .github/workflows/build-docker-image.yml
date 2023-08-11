@@ -70,4 +70,4 @@ jobs:
       - name: Confirm
         id: confirm_tag
         run: |
-          echo ${{IS_TAG_EVENT}}
+          echo ${{ IS_TAG_EVENT }}
