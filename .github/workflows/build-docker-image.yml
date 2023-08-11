@@ -57,7 +57,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          push: "$IS_TAG_EVENT"
+          push: ${{ env.IS_TAG_EVENT }}
           tags: |
             ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
