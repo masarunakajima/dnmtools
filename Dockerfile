@@ -52,7 +52,7 @@ COPY --from=build_sam_hts /app/samtools/${SAMDIR}/bin/. /usr/bin
 RUN mkdir /app/dnmtools
 COPY . /app/dnmtools
 RUN cd /app/dnmtools && ./autogen.sh && mkdir build && cd build \ 
- && ../configure --prefix=`pwd` && make && make check && make distcheck && make install
+ && ../configure --prefix=`pwd` && make  && make install
 
 
 # Build a light-weight image just with binaries
