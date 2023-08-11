@@ -1,4 +1,4 @@
-name: Deploy Docker image
+name: Push Package
 
 on: 
   workflow_dispatch:
@@ -20,6 +20,16 @@ jobs:
       packages: write
 
     steps:
+      - name: Check if tag event
+        id: check_tag
+        run: |
+          if [[ -n "$GITHUB_REF" && "$GITHUB_REF" == "refs/tags/"* ]]; then
+            echo "IS_TAG_EVENT=true" >> $GITHUB_ENV
+          else
+            echo "IS_TAG_EVENT=false" >> $GITHUB_ENV
+          fi
+
+
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
@@ -47,7 +57,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          push: true
+          push: ${{ steps.check_tag.outputs.IS_TAG_EVENT == 'true' }}
           tags: |
             ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
