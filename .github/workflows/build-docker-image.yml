@@ -70,4 +70,4 @@ jobs:
       - name: Confirm
         id: confirm_tag
         run: |
-          echo ${{ steps.check_tag.outputs.IS_TAG_EVENT }}
+          echo ${{ env.IS_TAG_EVENT }}
