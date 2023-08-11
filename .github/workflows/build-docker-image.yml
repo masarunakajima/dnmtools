@@ -22,9 +22,9 @@ jobs:
         run: |
           echo $GITHUB_REF
           if [[ -n "$GITHUB_REF" && "$GITHUB_REF" == "refs/tags/"* ]]; then
-            echo "IS_TAG_EVENT=true" >> $GITHUB_ENV
+            echo "IS_TAG_EVENT=true" >> $GITHUB_ENV && echo "THIS IS TRUE"
           else
-            echo "IS_TAG_EVENT=false" >> $GITHUB_ENV
+            echo "IS_TAG_EVENT=false" >> $GITHUB_ENV && echo "THIS IS FALSE"
           fi
 
   build-and-push:
