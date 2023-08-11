@@ -28,7 +28,7 @@ jobs:
           fi
 
   build-and-push:
-		needs: determine-event
+    needs: determine-event
     runs-on: ubuntu-latest
     permissions:
       contents: read
