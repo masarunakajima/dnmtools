@@ -26,9 +26,9 @@ jobs:
         run: |
           echo $GITHUB_REF
           if [[ -n "$GITHUB_REF" && "$GITHUB_REF" == "refs/tags/v"*.*.* ]]; then
-            echo "IS_TAG_EVENT=true" >> $GITHUB_ENV && echo "THIS IS TRUE"
+            echo "IS_TAG_EVENT=true" >> $GITHUB_ENV 
           else
-            echo "IS_TAG_EVENT=false" >> $GITHUB_ENV && echo "THIS IS FALSE"
+            echo "IS_TAG_EVENT=false" >> $GITHUB_ENV
           fi
           
       - name: Checkout repository
@@ -62,7 +62,7 @@ jobs:
             ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           
-      - name: Confirm
+      - name: Decision to push or not
         id: confirm_tag
         run: |
           echo ${{ env.IS_TAG_EVENT }}
