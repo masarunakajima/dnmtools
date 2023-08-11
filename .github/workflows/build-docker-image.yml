@@ -57,12 +57,12 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          push: ${{ steps.check_tag.outputs.IS_TAG_EVENT == 'true' }}
+          push: "$IS_TAG_EVENT"
           tags: |
             ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           
-      - name: Confirm
-        id: confirm_tag
-        run: |
-          echo "$IS_TAG_EVENT"
+#      - name: Confirm
+#        id: confirm_tag
+#        run: |
+#          echo "$IS_TAG_EVENT"
