@@ -25,7 +25,7 @@ jobs:
         id: check_tag
         run: |
           echo $GITHUB_REF
-          if [[ -n "$GITHUB_REF" && "$GITHUB_REF" == "refs/tags/v*.*.*" ]]; then
+          if [[ -n "$GITHUB_REF" && "$GITHUB_REF" == "refs/tags/v"*.*.* ]]; then
             echo "IS_TAG_EVENT=true" >> $GITHUB_ENV && echo "THIS IS TRUE"
           else
             echo "IS_TAG_EVENT=false" >> $GITHUB_ENV && echo "THIS IS FALSE"
