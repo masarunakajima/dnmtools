@@ -71,4 +71,4 @@ FROM alpine:latest
 #COPY --from=build_dnmtools /app/dnmtools/build/dnmtools /usr/bin
 
 #ENTRYPOINT ["dnmtools"]
-CMD []
+CMD ["echo", "hello"]
