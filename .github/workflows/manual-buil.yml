@@ -23,15 +23,6 @@ jobs:
       packages: write
 
     steps:
-      - name: Check if tag event
-        id: check_tag
-        run: |
-          echo $GITHUB_REF
-          if [[ -n "$GITHUB_REF" && "$GITHUB_REF" == "refs/tags/v"*.*.* ]]; then
-            echo "IS_TAG_EVENT=true" >> $GITHUB_ENV 
-          else
-            echo "IS_TAG_EVENT=false" >> $GITHUB_ENV
-          fi
           
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -59,12 +50,9 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          push: ${{ env.IS_TAG_EVENT }}
+          push: true
           tags: |
             ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           
-      - name: Decision to push or not
-        id: confirm_tag
-        run: |
-          echo ${{ env.IS_TAG_EVENT }}
+
