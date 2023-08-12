@@ -5,7 +5,7 @@ on:
     branches:
       - main
     inputs:
-      tag:
+      version:
         description: 'Tag to build Docker image for'
         required: true
 
