@@ -53,6 +53,7 @@ jobs:
           context: .
           push: true
           tags: |
+            ${{ env.REGISTRY }}/${{ github.repository }}:${{ github.event.inputs.version }}
             ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           
