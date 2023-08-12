@@ -29,7 +29,7 @@ jobs:
       - name: Get latest version
         id: get-latest-version
         run: |
-          git fetch --tags
+          git checkout master
           echo "LATEST_VERSION=$(git describe --abbrev=0 --tags)" >> $GITHUB_ENV
           echo "$(git describe --abbrev=0 --tags)"
           
