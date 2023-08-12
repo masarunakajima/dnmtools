@@ -69,4 +69,4 @@ FROM alpine:latest
 #COPY --from=build_dnmtools /app/dnmtools/build/dnmtools /usr/bin
 
 #ENTRYPOINT ["dnmtools"]
-CMD ["echo", "hello world! This is another change. This is another change"]
+CMD ["echo", "hello world! This is another change. This is another change. Yet another change."]
