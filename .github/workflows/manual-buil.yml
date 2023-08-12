@@ -69,6 +69,8 @@ jobs:
       - name: Tag image as latest (if applicable)
         if: success() && ${{ github.event.inputs.version == env.LATEST_VERSION }}
         run: |
+          echo ${{ github.event.inputs.version }}
+          echo ${{ env.LATEST_VERSION }}
           echo "Tagging with latest"
           docker tag ghcr.io/${{ github.repository }}:${{ github.event.inputs.version }} ghcr.io/${{ github.repository }}:latest
           docker push ghcr.io/${{ github.repository }}:latest
