@@ -46,10 +46,6 @@ jobs:
       - name: Get commit hash for version
         id: get-commit-hash
         run: |
-          git checkout origin/master
-          git rev-parse --short HEAD
-          git describe --abbrev=0 --tags
-          git checkout tags/${{ github.event.inputs.version }}
           git rev-parse --short HEAD
           echo "SHORT_COMMIT=$(git rev-parse --short=7 ${{ github.event.inputs.version }})" >> $GITHUB_ENV
         
