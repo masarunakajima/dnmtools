@@ -56,7 +56,7 @@ jobs:
           push: true
           tags: |
             ${{ env.REGISTRY }}/${{ github.repository }}:${{ github.event.inputs.version }}
-            ${{ env.REGISTRY }}/${{ github.repository }}:${{ steps.get-commit-hash.outputs.commit }}
+            ${{ env.REGISTRY }}/${{ github.repository }}:${{ steps.get-commit-hash.outputs.short_commit }}
             ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           
