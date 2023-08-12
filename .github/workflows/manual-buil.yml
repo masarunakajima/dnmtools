@@ -57,7 +57,7 @@ jobs:
           tags: |
             ${{ env.REGISTRY }}/${{ github.repository }}:latest
             ${{ env.REGISTRY }}/${{ github.repository }}:${{ github.event.inputs.version }}
-            ${{ env.REGISTRY }}/${{ github.repository }}:${{ steps.get-commit-hash.outputs.short_commit }}
+            ${{ env.REGISTRY }}/${{ github.repository }}:sha-${{ steps.get-commit-hash.outputs.short_commit }}
             ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           
