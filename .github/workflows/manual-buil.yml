@@ -26,7 +26,7 @@ jobs:
       - name: Checkout current repository to get latest version
         uses: actions/checkout@v3
         with:
-          repository: ${{ github.repository }}
+          fetch-depth: 0
           
       - name: Get latest version
         id: get-latest-version
