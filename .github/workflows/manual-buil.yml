@@ -28,7 +28,9 @@ jobs:
         
       - name: Get latest version
         id: get-latest-version
-        run: echo "LATEST_VERSION=$(git describe --abbrev=0 --tags)" >> $GITHUB_ENV
+        run: |
+          echo "LATEST_VERSION=$(git describe --abbrev=0 --tags)" >> $GITHUB_ENV
+          echo "$(git describe --abbrev=0 --tags)"
           
       - name: Checkout the specified version
         uses: actions/checkout@v3
