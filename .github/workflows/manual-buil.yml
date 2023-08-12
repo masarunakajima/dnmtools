@@ -25,12 +25,11 @@ jobs:
 
       - name: Checkout current repository to get latest version
         uses: actions/checkout@v3
-        with:
-          submodules: 'recursive'
           
       - name: Get latest version
         id: get-latest-version
         run: |
+          git fetch --tags
           echo "LATEST_VERSION=$(git describe --abbrev=0 --tags)" >> $GITHUB_ENV
           echo "$(git describe --abbrev=0 --tags)"
           
