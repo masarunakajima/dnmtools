@@ -72,7 +72,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Tag image as latest (if applicable)
-        if: success() && ${{ github.event.inputs.version == env.LATEST_VERSION }}
+        if: success() && github.event.inputs.version == env.LATEST_VERSION
         run: |
           echo ${{ github.event.inputs.version }}
           echo ${{ env.LATEST_VERSION }}
