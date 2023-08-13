@@ -47,10 +47,12 @@ RUN apk add gsl-dev zlib-dev bzip2-dev xz-dev wget gzip
 COPY --from=build_sam_hts /app/htslib/${HTSDIR}/lib/. /usr/lib
 COPY --from=build_sam_hts /app/htslib/${HTSDIR}/include/. /usr/include
 COPY --from=build_sam_hts /app/samtools/${SAMDIR}/bin/. /usr/bin
+
 RUN mkdir /app/dnmtools
 COPY . /app/dnmtools
 RUN cd /app/dnmtools && ./autogen.sh && mkdir build && cd build \ 
- && ../configure --prefix=`pwd` && make  && make install
+ && ../configure --prefix=`pwd` && make  && make check && make distcheck \
+ && make install
 
 
 # Build a light-weight image just with binaries
