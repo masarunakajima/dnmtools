@@ -90,9 +90,8 @@ jobs:
         run: |
           echo "IMAGE_TAGS=${{ env.COMMIT }},${{ env.VERSION }}" \
                                                        >> $GITHUB_ENV
-
           if [[ "${{ env.VERSION }}" == "${{ env.LATEST_VERSION }}" ]]; then
-            echo "IMAGE_TAGS=${{IMAGE_TAGS}},latest" >> $GITHUB_ENV
+            echo "IMAGE_TAGS=${{ IMAGE_TAGS }},latest" >> $GITHUB_ENV
           fi
 
       - name: Build (and push) Docker image
