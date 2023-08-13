@@ -55,7 +55,7 @@ jobs:
             echo "VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
           fi
 
-      - name: Set version for tag trigger # overrides above step
+      - name: Set version for tag trigger 
         if: startsWith(github.ref, 'refs/tags/v')
         run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV 
 
