@@ -91,7 +91,7 @@ jobs:
         run: |
           if [[ "${{ env.VERSION }}" == "${{ env.LATEST_VERSION }}" ]]; then
             export IMAGE_TAGS="${{ env.IMAGE_TAGS }},latest"
-            echo "IMAGE_TAGS=${{ IMAGE_TAGS }}" >> $GITHUB_ENV
+            echo "IMAGE_TAGS=${IMAGE_TAGS}" >> $GITHUB_ENV
           else
             echo "IMAGE_TAGS=${{ env.IMAGE_TAGS }}" >> $GITHUB_ENV
           fi
