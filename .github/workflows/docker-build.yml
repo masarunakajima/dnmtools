@@ -49,7 +49,6 @@ jobs:
           else
             echo "VERSION=${{ github.event.inputs.version }}" >> GITHUB_ENV
           fi
-          echo "${{VERSION}}"
           
       - name: Set commit tag
         run: |
