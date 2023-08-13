@@ -67,8 +67,7 @@ jobs:
           
       - name: Get commit hash for version
         run: |
-          echo "COMMIT=$(git rev-parse --short 
-                ${{ github.event.inputs.version }})" >> $GITHUB_ENV
+          echo "COMMIT=$(git rev-parse --short HEAD" >> $GITHUB_ENV
         
       - name: Log in to the Container registry
         uses: docker/login-action@v2
