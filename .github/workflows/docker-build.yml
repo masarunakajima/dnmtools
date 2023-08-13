@@ -42,7 +42,7 @@ jobs:
         run: |
           echo "LATEST_VERSION=$(git describe --abbrev=0 --tags)" >> $GITHUB_ENV
           if [ "${{ github.event.inputs.version }}" == "" ]; then
-            echo "VERSION=$LATEST_VERSION" >> GITHUB_ENV
+            echo "VERSION=${LATEST_VERSION}" >> GITHUB_ENV
             echo "$VERSION"
           fi
           
