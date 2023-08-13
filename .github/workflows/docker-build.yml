@@ -6,16 +6,16 @@ on:
       - main
     inputs:
       buildOption:
-        description: 'Build option'
+        description: 'Build/Push option'
         required: true
         default: 'Build latest commit'
         type: choice
         options:
-        - Build latest commit
-        - Build existing version
-        - Build + publish existing version
+        - 'Build latest commit'
+        - 'Build existing version'
+        - 'Build + publish existing version'
       version:
-        description: 'Version number: "v*.*.*" (latest version if not specified)'
+        description: 'Version number: "v*.*.*" \n(latest version if not specified)'
         required: false
 
 env:
