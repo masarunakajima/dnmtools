@@ -87,12 +87,11 @@ jobs:
           fi
 
       - name: Determine image tags
+        env: 
+          IMAGE_TAGS: ${{ env.COMMIT }},${{ env.VERSION }}
         run: |
-          IMAGE_TAGS="${{ env.COMMIT }},${{ env.VERSION }}"
-          echo "IMAGE_TAGS=${{ IMAGE_TAGS }}" >> $GITHUB_ENV
           if [[ "${{ env.VERSION }}" == "${{ env.LATEST_VERSION }}" ]]; then
-            IMAGE_TAGS="${{ env.IMAGE_TAGS }},latest"
-            echo "IMAGE_TAGS=${IMAGE_TAGS}" >> $GITHUB_ENV
+            env.IMAGE_TAGS="${{ env.IMAGE_TAGS }},latest"
           fi
 
       - name: Build (and push) Docker image
