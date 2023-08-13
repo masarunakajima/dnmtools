@@ -42,8 +42,8 @@ jobs:
         run: |
           echo "LATEST_VERSION=$(git describe --abbrev=0 --tags)" >> $GITHUB_ENV
           if [ "${{ github.event.inputs.version }}" == "" ]; then
-            echo "VERSION=${{LATEST_VERSION}}" >> GITHUB_ENV
-            echo "${{VERSION}}"
+            echo "VERSION=${{env.LATEST_VERSION}}" >> GITHUB_ENV
+            echo "${{env.VERSION}}"
           fi
           
       - name: Set commit tag
