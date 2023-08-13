@@ -5,8 +5,8 @@ on:
     branches:
       - main
     inputs:
-      buildOption:
-        description: 'Build/Push option'
+      build_option:
+        description: 'Build/push option'
         required: true
         default: 'Build latest commit'
         type: choice
@@ -39,11 +39,17 @@ jobs:
           fetch-depth: 0 # Needed to get tags information
           
       - name: Get latest version
-        id: get-latest-version
         run: |
-          echo "LATEST_VERSION=$(git describe --abbrev=0 --tags)" >> $GITHUB_ENV
-          echo "$(git describe --abbrev=0 --tags)"
+          echo "LATEST_VERSION=$(git describe --abbrev=0 --tags)" >> 
+                        $GITHUB_ENV
           
+      - name: Set commit tag
+        run: |
+          if [ "{{ github.event.inputs.build_option }}" == 
+                                          "Build latest commit" ]; then
+            echo hi
+          fi
+
       - name: Checkout the specified version
         uses: actions/checkout@v3
         with:
