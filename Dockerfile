@@ -4,6 +4,7 @@ RUN apk update
 WORKDIR /app
 
 RUN apk add build-base 
+RUN apk add vim # just for the change
 RUN apk add autoconf 
 RUN apk add automake 
 RUN apk add gsl-dev zlib-dev bzip2-dev xz-dev ncurses-dev
