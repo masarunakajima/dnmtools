@@ -44,7 +44,7 @@ jobs:
           
       - name: Set version
         run: |
-          if [ "${{ github.event.inputs.version }}" == "" ]; then
+          if [[ "${{ github.event.inputs.version }}" == "" ]]; then
             echo "VERSION=${{env.LATEST_VERSION}}" >> $GITHUB_ENV
           else
             echo "VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
@@ -52,23 +52,23 @@ jobs:
           
       - name: Set commit tag
         run: |
-          if [ "${{ github.event.inputs.build_option }}" == \
-                                        "Build latest commit" ]; then
+          if [[ "${{ github.event.inputs.build_option }}" == \
+                                        "Build latest commit" ]]; then
             echo "COMMIT_TAG=" >> $GITHUB_ENV
           else
             echo "COMMIT_TAG=${{ env.VERSION }}" >> $GITHUB_ENV
           fi
 
-      - name: Checkout the specified version
+      - name: Checkout the specified commit
         uses: actions/checkout@v3
         with:
           ref: ${{ env.COMMIT_TAG }}
           submodules: 'recursive'
           
       - name: Get commit hash for version
-        id: get-commit-hash
         run: |
-          echo "SHORT_COMMIT=$(git rev-parse --short ${{ github.event.inputs.version }})" >> $GITHUB_ENV
+          echo "COMMIT=$(git rev-parse --short 
+                ${{ github.event.inputs.version }})" >> $GITHUB_ENV
         
       - name: Log in to the Container registry
         uses: docker/login-action@v2
@@ -77,32 +77,28 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: |
-            type=ref,event=branch
+      - name: Decide whether to push the image to ghcr.io
+        run: |
+          if [[ "${{ github.event.inputs.build_option }}" == \
+                            "Build + publish existing version"]]; then
+            echo "PUSH=true" >> $GITHUB_ENV 
+          else
+            echo "PUSH=false" >> $GITHUB_ENV
+          fi
 
-      - name: Build and push Docker image
+      - name: Determine image tags
+        run: |
+          echo "IMAGE_TAGS=${{ env.COMMIT }},${{ env.VERSION }}" \
+                                                       >> $GITHUB_ENV
+
+          if [[ "${{ env.VERSION }}" == "${{ env.LATEST_VERSION }}" ]]; then
+            echo "IMAGE_TAGS=${{IMAGE_TAGS}},latest"
+
+      - name: Build (and push) Docker image
         uses: docker/build-push-action@v4
         with:
           context: .
-          push: true
+          push: ${{ env.PUSH }}
           tags: |
-            ${{ env.REGISTRY }}/${{ github.repository }}:${{ github.event.inputs.version }}
-            ${{ env.REGISTRY }}/${{ github.repository }}:sha-${{ env.SHORT_COMMIT }}
-            ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-
-      - name: Tag image as latest (if applicable)
-        if: success() && github.event.inputs.version == env.LATEST_VERSION
-        run: |
-          echo ${{ github.event.inputs.version }}
-          echo ${{ env.LATEST_VERSION }}
-          echo "Tagging with latest"
-          docker tag ghcr.io/${{ github.repository }}:${{ github.event.inputs.version }} ghcr.io/${{ github.repository }}:latest
-          docker push ghcr.io/${{ github.repository }}:latest
-          
+            ${{ env.REGISTRY }}/${{ github.repository }}:${{ env.IMAGE_TAGS }}
 
