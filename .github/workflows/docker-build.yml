@@ -90,8 +90,7 @@ jobs:
           IMAGE_TAGS: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.COMMIT }},${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}"
         run: |
           if [[ "${{ env.VERSION }}" == "${{ env.LATEST_VERSION }}" ]]; then
-            echo "IMAGE_TAGS=${{ env.IMAGE_TAGS }}," \
-            "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest" >> $GITHUB_ENV
+            echo "IMAGE_TAGS=${{ env.IMAGE_TAGS }},${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest" >> $GITHUB_ENV
           else
             echo "IMAGE_TAGS=${{ env.IMAGE_TAGS }}" >> $GITHUB_ENV
           fi
