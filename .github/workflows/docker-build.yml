@@ -41,13 +41,16 @@ jobs:
       - name: Get latest version
         run: |
           echo "LATEST_VERSION=$(git describe --abbrev=0 --tags)" >> $GITHUB_ENV
+          echo "Latest version: ${{LATEST_VERSION}}"
 
       - name: Set version
         run: |
           if [ "${{ github.event.inputs.version }}" == "" ]; then
             echo "VERSION=${{env.LATEST_VERSION}}" >> GITHUB_ENV
-            echo "${{env.VERSION}}"
+          else
+            echo "VERSION=${{ github.event.inputs.version }}" >> GITHUB_ENV
           fi
+          echo "$${{VERSION}}"
           
       - name: Set commit tag
         run: |
