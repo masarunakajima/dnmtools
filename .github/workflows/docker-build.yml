@@ -91,7 +91,7 @@ jobs:
           IMAGE_TAGS: ${{ env.COMMIT }},${{ env.VERSION }}
         run: |
           if [[ "${{ env.VERSION }}" == "${{ env.LATEST_VERSION }}" ]]; then
-            env.IMAGE_TAGS="${{ env.IMAGE_TAGS }},latest"
+            export env.IMAGE_TAGS="${{ env.IMAGE_TAGS }},latest"
           fi
 
       - name: Build (and push) Docker image
