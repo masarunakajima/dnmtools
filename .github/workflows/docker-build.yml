@@ -40,12 +40,12 @@ jobs:
           
       - name: Get latest version
         run: |
-          echo "LATEST_VERSION=$(git describe --abbrev=0 --tags)" >> 
+          echo "LATEST_VERSION=$(git describe --abbrev=0 --tags)" >> \
                         $GITHUB_ENV
           
       - name: Set commit tag
         run: |
-          if [ "{{ github.event.inputs.build_option }}" == 
+          if [ "{{ github.event.inputs.build_option }}" == \
                                           "Build latest commit" ]; then
             echo hi
           fi
