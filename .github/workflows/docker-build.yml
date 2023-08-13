@@ -42,17 +42,17 @@ jobs:
         run: |
           echo "LATEST_VERSION=$(git describe --abbrev=0 --tags)" >> \
                         $GITHUB_ENV
-          if [ "{{ github.event.inputs.version }}" == "" ]; then
-            echo "VERSION={{ env.LATEST_VERSION }}"
-            echo "{{ env.VERSION }}"
+          if [ "${{ github.event.inputs.version }}" == "" ]; then
+            echo "VERSION=${{ env.LATEST_VERSION }}"
+            echo "${{ env.VERSION }}"
           fi
           
       - name: Set commit tag
         run: |
-          if [ "{{ github.event.inputs.build_option }}" == \
+          if [ "${{ github.event.inputs.build_option }}" == \
                                         "Build latest commit" ]; then
             echo "COMMIT_TAG=origin/master"
-          elif [ "{{ github.event.inputs.build_option }}" == \
+          elif [ "${{ github.event.inputs.build_option }}" == \
                                         "Build existing version" ]; then
             echo "COMMIT_TAG=origin/master"
           fi
