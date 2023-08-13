@@ -87,7 +87,8 @@ jobs:
       - name: Decide whether to push the image to ghcr.io
         run: |
           if [[ "${{ github.event.inputs.build_option }}" == \
-                          "Build + publish existing version" ]]; then
+                          "Build + publish existing version" ]] || 
+             [[ "${{ github.event_name }}" == "push" ]]; then
             echo "PUSH=true" >> $GITHUB_ENV 
           else
             echo "PUSH=false" >> $GITHUB_ENV
