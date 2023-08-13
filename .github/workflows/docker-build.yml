@@ -15,9 +15,8 @@ on:
         - 'Build existing version'
         - 'Build + publish existing version'
       version:
-        description: |
-          Version number: "v*.*.*"
-          (latest version if not specified)
+        description: 'Version number: "v*.*.*" 
+                      (latest version if not specified)'
         required: false
 
 env:
