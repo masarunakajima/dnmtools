@@ -77,4 +77,4 @@
 
 
 FROM alpine:latest
-CMD ["echo", "v3.0.5 "]
+CMD ["echo", "v3.0.6 "]
