@@ -41,7 +41,6 @@ jobs:
       - name: Get latest version
         run: |
           echo "LATEST_VERSION=$(git describe --abbrev=0 --tags)" >> $GITHUB_ENV
-          #echo "Latest version: ${{LATEST_VERSION}}"
 
       - name: Set version
         run: |
