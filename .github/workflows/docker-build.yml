@@ -19,6 +19,10 @@ on:
                       (latest version if not specified)'
         required: false
 
+  push:
+    tags:
+      - 'v*.*.*'
+
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
@@ -42,14 +46,18 @@ jobs:
         run: |
           echo "LATEST_VERSION=$(git describe --abbrev=0 --tags)" >> $GITHUB_ENV
           
-      - name: Set version
+      - name: Set version for manual trigger
         run: |
           if [[ "${{ github.event.inputs.version }}" == "" ]]; then
             echo "VERSION=${{env.LATEST_VERSION}}" >> $GITHUB_ENV
           else
             echo "VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
           fi
-          
+
+      - name: Set version for tag trigger # overrides above step
+        if: startsWith(github.ref, 'refs/tags/v')
+          run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV 
+
       - name: Set commit tag
         run: |
           if [[ "${{ github.event.inputs.build_option }}" == \
