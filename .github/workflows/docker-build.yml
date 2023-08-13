@@ -1,13 +1,22 @@
-name: Manual Push Package
+name: Docker image build
 
 on: 
   workflow_dispatch:
     branches:
       - main
     inputs:
-      version:
-        description: 'Tag to build Docker image for'
+      buildOption:
+        description: 'Build option'
         required: true
+        default: 'Build latest commit'
+        type: choice
+        options:
+        - Build latest commit
+        - Build existing version
+        - Build + publish existing version
+      version:
+        description: 'Version number: "v*.*.*" (latest version if not specified)'
+        required: false
 
 env:
   REGISTRY: ghcr.io
