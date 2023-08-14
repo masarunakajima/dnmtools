@@ -98,14 +98,13 @@ jobs:
             echo "COMMIT_HASH=$(git rev-parse ${{ env.VERSION }})" >> $GITHUB_ENV 
           fi
 
-      - name: 'Checkout the specified commit (commit tag:  
-                          $(git rev-parse --short ${{ env.COMMIT_HASH }}))'
+      - name: "Checkout the specified commit"
         uses: actions/checkout@v3
         with:
           ref: ${{ env.COMMIT_HASH }}
           submodules: 'recursive'
           
-      - name: Get commit sha 
+      - name: "Get commit sha ($(git rev-parse --short ${{ env.COMMIT_HASH }}))"
         run: |
           echo "SHA=$(git rev-parse --short ${{ env.COMMIT_HASH }})" >> $GITHUB_ENV
         
