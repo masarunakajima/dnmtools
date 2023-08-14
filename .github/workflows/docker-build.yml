@@ -92,12 +92,14 @@ jobs:
         run: |
           if [[ "${{ github.event.inputs.build_option }}" == \
                                         "Build latest commit" ]]; then
+            COMMIT_HASH=${{ github.sha }}
             echo "COMMIT_HASH=${{ github.sha }}" >> $GITHUB_ENV 
           else
             # for specified version in manual trigger or tag event
+            COMMIT_HASH=$(git rev-parse ${{ env.VERSION }})
             echo "COMMIT_HASH=$(git rev-parse ${{ env.VERSION }})" >> $GITHUB_ENV 
           fi
-          SHA=$(git rev-parse --short "${COMMIT_HASH}")
+          SHA=$(git rev-parse --short "${{ COMMIT_HASH }}")
           echo "SHA=${SHA}" >> $GITHUB_ENV
 
       - name: "Checkout the commit: ${{ env.SHA }}"
