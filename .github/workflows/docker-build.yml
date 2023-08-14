@@ -88,7 +88,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v')
         run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV 
 
-      - name: 'Set commit tag (version: ${{ env.VERSION }})'
+      - name: 'Set commit tag'
         run: |
           if [[ "${{ github.event.inputs.build_option }}" == \
                                         "Build latest commit" ]]; then
@@ -98,7 +98,8 @@ jobs:
             echo "COMMIT_TAG=${{ env.VERSION }}" >> $GITHUB_ENV
           fi
 
-      - name: Checkout the specified commit
+      - name: 'Checkout the specified commit (commit tag: 
+                                        "${{ env.COMMIT_TAG }}")'
         uses: actions/checkout@v3
         with:
           ref: ${{ env.COMMIT_TAG }}
