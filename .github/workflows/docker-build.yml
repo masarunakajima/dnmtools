@@ -42,7 +42,7 @@ jobs:
         with:
           fetch-depth: 0 # Needed to get tags information
           
-      - name: Get latest version
+      - name: 'Get latest version (${{ env.LATEST_VERSION }})'
         run: |
           echo "LATEST_VERSION=$(git describe --abbrev=0 --tags)" >> $GITHUB_ENV
           
