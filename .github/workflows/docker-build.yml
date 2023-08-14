@@ -1,3 +1,32 @@
+
+# This workflow is for building and possibly pushing the docker image for
+# a commit tagged by a version number.  It is triggered either manually or by
+# a tag event of type "v*.*.*", which is intended for new releases. Currently,
+# pushing to ghcr.io can happen only to commits tagged by a version number. This
+# is intended to associate every docker image with a version number. This means
+# that there is no option to push the image for the latest commit, even though
+# we can build the image for testing purposes. 
+#
+# Manual trigger
+#   In Actions, go to "Docker image build" and click
+#   "Run workflow" and choose from the following options.
+#   Options:
+#    - 'Build latest commit': for testing for the latest commit
+#    - 'Build existing version': for testing a particular version 
+#    - 'Build + push existing version': for publishing a particular version
+#
+# Tag event
+#   In a tag event of type "v*.*.*", such as new release or retagging, this work
+#   flow is triggered to build and publish the image for the tagged version
+#   number.
+#
+# The image can be pulled by one of the following commands.
+#
+# docker pull ghcr.io/smithlabcode/dnmtools:latest
+# docker pull ghcr.io/smithlabcode/dnmtools:<7-DIGIT COMMIT HASH>
+# docker pull ghcr.io/smithlabcode/dnmtools:v<VERSION NUMBER> (e.g. v1.3.0)
+
+
 name: Docker image build
 
 on: 
@@ -13,7 +42,7 @@ on:
         options:
         - 'Build latest commit'
         - 'Build existing version'
-        - 'Build + publish existing version'
+        - 'Build + push existing version'
       version:
         description: 'Version number: "v*.*.*" 
                       (latest version if not specified)'
@@ -88,13 +117,15 @@ jobs:
       - name: Decide whether to push the image to ghcr.io
         run: |
           if [[ "${{ github.event.inputs.build_option }}" == \
-                          "Build + publish existing version" ]] || 
+                          "Build + push existing version" ]] || 
              [[ "${{ github.event_name }}" == "push" ]]; then
             echo "PUSH=true" >> $GITHUB_ENV 
           else
             echo "PUSH=false" >> $GITHUB_ENV
           fi
 
+      # The default tags are the commit hash and the version number.
+      # Below command adds the "latest" tag if the version number is the latest.
       - name: Determine image tags
         env: 
           IMAGE_TAGS: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.COMMIT }},${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}"
@@ -104,7 +135,6 @@ jobs:
           else
             echo "IMAGE_TAGS=${{ env.IMAGE_TAGS }}" >> $GITHUB_ENV
           fi
-
 
       - name: 'Build Docker image (push: ${{ env.PUSH }})'
         uses: docker/build-push-action@v4
