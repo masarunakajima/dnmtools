@@ -99,7 +99,7 @@ jobs:
             COMMIT_HASH=$(git rev-parse ${{ env.VERSION }})
             echo "COMMIT_HASH=$(git rev-parse ${{ env.VERSION }})" >> $GITHUB_ENV 
           fi
-          SHA=$(git rev-parse --short "${{ COMMIT_HASH }}")
+          SHA=$(git rev-parse --short "${COMMIT_HASH}")
           echo "SHA=${SHA}" >> $GITHUB_ENV
 
       - name: "Checkout the commit: ${{ env.SHA }}"
