@@ -92,7 +92,7 @@ jobs:
         run: |
           if [[ "${{ github.event.inputs.build_option }}" == \
                                         "Build latest commit" ]]; then
-            echo "COMMIT_TAG=" >> $GITHUB_ENV 
+            echo "COMMIT_TAG=HEAD" >> $GITHUB_ENV 
           else
             # for specified version in manual trigger or tag event
             echo "COMMIT_TAG=${{ env.VERSION }}" >> $GITHUB_ENV
