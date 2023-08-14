@@ -97,7 +97,8 @@ jobs:
             # for specified version in manual trigger or tag event
             echo "COMMIT_HASH=$(git rev-parse ${{ env.VERSION }})" >> $GITHUB_ENV 
           fi
-          echo "SHA=$(git rev-parse --short ${COMMIT_HASH} )" >> $GITHUB_ENV
+          SHA=$(git rev-parse --short "${COMMIT_HASH}")
+          echo "SHA=${SHA}" >> $GITHUB_ENV
 
       - name: "Checkout the commit: ${{ env.SHA }}"
         uses: actions/checkout@v3
