@@ -104,7 +104,7 @@ jobs:
           ref: ${{ env.COMMIT_HASH }}
           submodules: 'recursive'
           
-      - name: "Get commit sha ($(git rev-parse --short ${{ env.COMMIT_HASH }}))"
+      - name: "Get commit sha (`git rev-parse --short ${{ env.COMMIT_HASH }}`)"
         run: |
           echo "SHA=$(git rev-parse --short ${{ env.COMMIT_HASH }})" >> $GITHUB_ENV
         
