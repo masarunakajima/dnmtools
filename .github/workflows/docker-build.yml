@@ -151,7 +151,7 @@ jobs:
             echo "DOCKERFILE=temp.Dockerfile" >> $GITHUB_ENV
           fi
 
-      - name: 'Build Docker image (push: ${{ env.PUSH }}, dockerfile: ${{ env.DOVERFILE }})'
+      - name: 'Build Docker image (push: ${{ env.PUSH }}, dockerfile: ${{ env.DOCKERFILE }})'
         uses: docker/build-push-action@v4
         with:
           context: .
