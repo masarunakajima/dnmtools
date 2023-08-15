@@ -77,4 +77,4 @@
 
 
 FROM alpine:latest
-CMD ["echo", "commit that did not have Dockerfile"]
+CMD ["echo", "Back to regular dockerfile"]
