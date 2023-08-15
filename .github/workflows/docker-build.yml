@@ -155,7 +155,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: ./${{ env.DOCKERFILE }}
+          file: ${{ env.DOCKERFILE }}
           push: ${{ env.PUSH }}
           tags: |
             ${{ env.IMAGE_TAGS }}
