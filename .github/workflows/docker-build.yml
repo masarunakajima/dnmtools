@@ -76,7 +76,7 @@ jobs:
       # This temporary Dockerfile should not be needed for new versions.
       - name: Copy Dockerfile to Temporary File
         run: |
-          cp Dockerfile temp.Dockerfile 
+          cp Dockerfile /tmp/Dockerfile 
           
       - name: 'Get latest version'
         run: |
@@ -146,9 +146,9 @@ jobs:
       - name: Use temp.Dockerfile if Dockerfile doesn't exist
         run: |
           if [ -f Dockerfile ]; then
-            echo "DOCKERFILE=Dockerfile" >> $GITHUB_ENV
+            echo "DOCKERFILE=./Dockerfile" >> $GITHUB_ENV
           else
-            echo "DOCKERFILE=temp.Dockerfile" >> $GITHUB_ENV
+            echo "DOCKERFILE=/tmp/Dockerfile" >> $GITHUB_ENV
           fi
 
       - name: 'Build Docker image (push: ${{ env.PUSH }}, dockerfile: ${{ env.DOCKERFILE }})'
