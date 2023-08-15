@@ -75,7 +75,7 @@ jobs:
       # This is to be used to build older versions that didn't have Dockerfile.
       # This temporary Dockerfile should not be needed for new versions.
       - name: Copy Dockerfile to Temporary File
-         run: |
+        run: |
           cp Dockerfile temp.Dockerfile 
           
       - name: 'Get latest version'
